@@ -2,12 +2,17 @@
 
 ## Członkowie zespołu
 
-Arkadiusz Kasperski 102633 arekk199@wp.pl \n
+Arkadiusz Kasperski 102633 arekk199@wp.pl
+
 Radosław Paluszak 102614 radoslaw.paluszak@student.put.poznan.pl
 
 ### Krótki opis projektu
 
-5-10 zdań opisujących główny cel i charakter projektu; np. typ aplikacji (desktopowa, webowa, na komórkę, itp.), powiązanie z informatyką medyczną, scenariusz użycia, itp. Proszę nie przepisywać tutaj podanego przeze mnie opisu projektu -- ma on stanowić jedynie pewien punkt wyjścia i inspirację. Zadaniem zespołu jest go doprecyzować.
+Aplikacja jest ściśle WEBowa. Pozwala na przeprowadzenie konsultacji lekarskich on-line. Prócz przeglądarki w jednej z aktualnych wersji (załóżmy FF 20+, Chrome 23+, Opera 12+, IE 9+) z __włączoną__ obsługą JavaScript, nie ma żadnych dodatkowych wymagań. Niestety wersja aplikacji nad którą pracujemy nie przewiduje możliwości uruchamiania z poziomu telefonu komórkowego (za małe możliwości obsługi JS). Wyjście jakie jednak przygotowujemy będzie miało _potencjalną_ możliwość uruchomienia napisania aplikacji klienckiej w wersji na iPhone lub Androida.
+
+__Przykład użycia__
+
+Zespół kilku (np. 3) onkologów, którzy stacjonują w niezależnych ośrodkach badawczych (np. Poznań, Cambridge, Sydney) wymaga konsultacji bardzo skomplikowanego przypadku potworniaka. Logują się do aplikacji, wybierają pokój chroniony hasłem. Każdy z nich ma możliwość użycia tekstowego czatu, jaki jest wbudowany w naszą aplikację. Dodatkowo, każdy z nich może uploadować zdjęcie w formacie JPEG (max 1600x1600) i oznaczyć na nim elementy, które aktualnie omawia.
 
 ### Założona funkcjonalność po pierwszym etapie
 
