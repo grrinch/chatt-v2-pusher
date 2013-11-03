@@ -1,7 +1,8 @@
 # Consulting Man
 
 ## Członkowie zespołu
-Arkadiusz Kasperski 102633 arekk199@wp.pl
+
+Arkadiusz Kasperski 102633 arekk199@wp.pl \n
 Radosław Paluszak 102614 radoslaw.paluszak@student.put.poznan.pl
 
 ### Krótki opis projektu
@@ -25,7 +26,12 @@ Radosław Paluszak 102614 radoslaw.paluszak@student.put.poznan.pl
     ogólny podział zadań między członków zespołu
 
 ### Przewidywane środowisko realizacji projektu
-- 
+- PHP 5
+- Zend Framework 2
+- Doctrine 2
+- Pusher
+- MVC
+
 
 ### Przewidywane trudności i problemy
     w punktach, jeśli występują

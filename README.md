@@ -1,7 +1,8 @@
 # Consulting Man
 
 ## Członkowie zespołu
-Arkadiusz Kasperski 102633 arekk199@wp.pl
+
+Arkadiusz Kasperski 102633 arekk199@wp.pl \n
 Radosław Paluszak 102614 radoslaw.paluszak@student.put.poznan.pl
 
 ### Krótki opis projektu
