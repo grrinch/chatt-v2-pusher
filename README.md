@@ -2,7 +2,7 @@
 
 ## Członkowie zespołu
 
-Arkadiusz Kasperski 102633 arekk199@wp.pl
+~~Arkadiusz Kasperski 102633 arekk199@wp.pl~~
 
 Radosław Paluszak 102614 radoslaw.paluszak@student.put.poznan.pl
 
@@ -44,11 +44,14 @@ __Radek:__
 - Doctrine
 - jQuery i opracowanie komunikacji po stronie klienta
 - integracja z Pusherem
-
-__Arek:__
 - HTML, CSS (rzeźbienie)
 - GUI po stronie klienta
 - testy jednostkowe
+
+~~__Arek:__~~
+~~- HTML, CSS (rzeźbienie)~~
+~~- GUI po stronie klienta~~
+~~- testy jednostkowe~~
 
 ### Przewidywane środowisko realizacji projektu
 - PHP 5 (Apache2, NetBeans)
