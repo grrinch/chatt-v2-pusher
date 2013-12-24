@@ -1,54 +1,76 @@
 <?php echo $this->doctype(); ?>
-<html lang="en">
+<html lang="pl">
     <head>
-        <meta charset="utf-8">
-        <?php echo $this->headTitle('ZF2 Skeleton Application')->setSeparator(' - ')->setAutoEscape(false) ?>
+        <?php $this->headMeta()->setCharset('UTF-8'); ?>
+        <?php echo $this->headTitle('Consulting-Man developed by gRRinch')->setSeparator(' | ')->setAutoEscape(false) ?>
 
-        <?php echo $this->headMeta()
-            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
-            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        <?php
+        echo $this->headMeta()
+                ->appendName('description', 'Quick Consultation application made by gRRinch. We&#039;ll see how it goes ;-)')
+                ->appendName('robots', 'noindex, nofollow')
+                ->appendHttpEquiv('pragma', 'no-cache')
+                ->appendHttpEquiv('Cache-Control', 'no-cache')
+                ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+                ->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8')
+                ->appendHttpEquiv('Content-Language', 'pl-PL')
+                ->setAutoEscape(true);
+
+        echo $this->headLink()
+                ->prependStylesheet('/style.css');
+
+        echo $this->headScript()
+                ->prependFile('/ajax.js')
+                ->prependFile('https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+                ->prependFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js');
         ?>
-
-        <!-- Le styles -->
-        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-                        ->prependStylesheet($this->basePath() . '/css/style.css')
-                        ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
-                        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
-
-        <!-- Scripts -->
-        <?php echo $this->headScript()
-            ->prependFile($this->basePath() . '/js/bootstrap.min.js')
-            ->prependFile($this->basePath() . '/js/jquery.min.js')
-            ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-            ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
-        ; ?>
 
     </head>
     <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath('img/zf2-logo.png') ?>" alt="Zend Framework 2"/>&nbsp;Skeleton Application</a>
-                </div>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="<?php echo $this->url('home') ?>">Home</a></li>
-                    </ul>
-                </div><!--/.nav-collapse -->
+        <div id="main_container">
+            <div class="errorbox"></div>
+            <div id="details">
+                Zalogowany jako: <span id="logged_as"></span> | <a href="#!wyloguj" id="wyloguj"><img src="./images/close.png" alt="" /> Wyloguj</a>
             </div>
-        </nav>
-        <div class="container">
-            <?php echo $this->content; ?>
-            <hr>
-            <footer>
-                <p>&copy; 2005 - <?php echo date('Y') ?> by Zend Technologies Ltd. All rights reserved.</p>
-            </footer>
-        </div> <!-- /container -->
-        <?php echo $this->inlineScript() ?>
+            <div id="login_ol">
+                <div id="login_form"><form method="post" action="./" id="main_login">
+                        <table class="tablecls">
+                            <tbody>	
+                                <tr>
+                                    <td><label for="login">Nick:</label></td>
+                                    <td><input type="text" name="login" id="login" /></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="room">Pokój:</label></td>
+                                    <td><input type="text" name="room" id="room" /><span></span></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="pass">Hasło:</label></td>
+                                    <td><input type="password" name="pass" id="pass" /></td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td><input type="submit" value="Wejdź" id="login_but" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form><div id="login_form_notif"></div></div>
+
+            </div>
+            <div id="chat">
+                <div id="users">
+                    <h2>Użytkownicy:</h2>
+                    <div></div>
+                </div>
+                <div id="talk">
+                </div>
+                <div id="write">
+                    <div><p><input type="checkbox" value="1" checked name="scrollToBottom" id="scrollToBottom" /><label for="scrollToBottom">AutoScroll</label></p></div>
+                    <form id="msgform" action="./" method="post">
+                        <textarea rows="3" cols="100" id="msgbd"></textarea>
+                        <input type="submit" value="Wyślij" id="msgbut" />
+                    </form>		
+                </div>
+            </div>
+        </div>
     </body>
 </html>

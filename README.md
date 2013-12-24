@@ -16,7 +16,8 @@ Zespół kilku (np. 3) onkologów, którzy stacjonują w niezależnych ośrodkac
 
 ### Założona funkcjonalność po pierwszym etapie
 1. Pełna integracja frameworka z ORMem
-Rozwiązanie problemu połączenia Zend Framework 2 z Doctrine 2. Prawdopodobnie wykorzystamy gotowe i zalecane rozwiązania.
+1.1. Rozwiązanie problemu połączenia Zend Framework 2 z Doctrine 2. 
+1.2. Prawdopodobnie wykorzystamy gotowe i zalecane rozwiązania.
 2. Stworzenie schematu bazy danych MySQL (MySQL Workbench)
 3. Utworzenie szkieletu aplikacji
 Odpowiedni podział zgodny z wymuszoną architekturą MVC. Wygenerowane modele dla Doctrine oraz przygotowane kontrolery, akcje i widoki
@@ -44,9 +45,9 @@ __Radek:__
 - Doctrine
 - jQuery i opracowanie komunikacji po stronie klienta
 - integracja z Pusherem
-- HTML, CSS (rzeźbienie)
-- GUI po stronie klienta
-- testy jednostkowe
+- __HTML, CSS (rzeźbienie)__
+- __GUI po stronie klienta__
+- __testy jednostkowe__
 
 ~~__Arek:__~~
 ~~- HTML, CSS (rzeźbienie)~~
