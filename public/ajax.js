@@ -1,6 +1,7 @@
 var __DEBUG = false;
 var myUser = {login: "", room: "", hash: ""};
 var timeOuts= new Array();
+var pusher = new Pusher('c40d70faadb30d3c0316');
 
 function login() {
 	if(__DEBUG) alert('uruchamiam login');

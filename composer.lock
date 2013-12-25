@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "06f26b57ef150eb8df552bcc78160705",
+    "hash": "dbf8169229db3b7b9c0524f9c4945f97",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -366,12 +366,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineModule.git",
-                "reference": "58137bd3bec87509674ab8abebe16fd39a21d1ba"
+                "reference": "dba2f4a4807e28b6b52eeab26da897bfdf9e3c92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineModule/zipball/58137bd3bec87509674ab8abebe16fd39a21d1ba",
-                "reference": "58137bd3bec87509674ab8abebe16fd39a21d1ba",
+                "url": "https://api.github.com/repos/doctrine/DoctrineModule/zipball/dba2f4a4807e28b6b52eeab26da897bfdf9e3c92",
+                "reference": "dba2f4a4807e28b6b52eeab26da897bfdf9e3c92",
                 "shasum": ""
             },
             "require": {
@@ -442,7 +442,7 @@
                 "module",
                 "zf2"
             ],
-            "time": "2013-12-09 10:12:45"
+            "time": "2013-12-20 01:14:12"
         },
         {
             "name": "doctrine/doctrine-orm-module",
@@ -450,12 +450,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineORMModule.git",
-                "reference": "03daada0306c26b0a910e23e1a5291ef37b84804"
+                "reference": "490d21436e1df93caf35e62278daaa02ddb7587f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineORMModule/zipball/03daada0306c26b0a910e23e1a5291ef37b84804",
-                "reference": "03daada0306c26b0a910e23e1a5291ef37b84804",
+                "url": "https://api.github.com/repos/doctrine/DoctrineORMModule/zipball/490d21436e1df93caf35e62278daaa02ddb7587f",
+                "reference": "490d21436e1df93caf35e62278daaa02ddb7587f",
                 "shasum": ""
             },
             "require": {
@@ -525,7 +525,7 @@
                 "orm",
                 "zf2"
             ],
-            "time": "2013-12-01 10:40:53"
+            "time": "2013-12-13 20:41:06"
         },
         {
             "name": "doctrine/inflector",
@@ -720,6 +720,98 @@
             "time": "2013-11-12 12:40:13"
         },
         {
+            "name": "guzzle/guzzle",
+            "version": "v3.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/guzzle.git",
+                "reference": "b4a3ce8c05e777fa18b802956d5d0e38ad338a69"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/b4a3ce8c05e777fa18b802956d5d0e38ad338a69",
+                "reference": "b4a3ce8c05e777fa18b802956d5d0e38ad338a69",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.3",
+                "symfony/event-dispatcher": ">=2.1"
+            },
+            "replace": {
+                "guzzle/batch": "self.version",
+                "guzzle/cache": "self.version",
+                "guzzle/common": "self.version",
+                "guzzle/http": "self.version",
+                "guzzle/inflection": "self.version",
+                "guzzle/iterator": "self.version",
+                "guzzle/log": "self.version",
+                "guzzle/parser": "self.version",
+                "guzzle/plugin": "self.version",
+                "guzzle/plugin-async": "self.version",
+                "guzzle/plugin-backoff": "self.version",
+                "guzzle/plugin-cache": "self.version",
+                "guzzle/plugin-cookie": "self.version",
+                "guzzle/plugin-curlauth": "self.version",
+                "guzzle/plugin-error-response": "self.version",
+                "guzzle/plugin-history": "self.version",
+                "guzzle/plugin-log": "self.version",
+                "guzzle/plugin-md5": "self.version",
+                "guzzle/plugin-mock": "self.version",
+                "guzzle/plugin-oauth": "self.version",
+                "guzzle/service": "self.version",
+                "guzzle/stream": "self.version"
+            },
+            "require-dev": {
+                "doctrine/cache": "*",
+                "monolog/monolog": "1.*",
+                "phpunit/phpunit": "3.7.*",
+                "psr/log": "1.0.*",
+                "symfony/class-loader": "*",
+                "zendframework/zend-cache": "2.0.*",
+                "zendframework/zend-log": "2.0.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Guzzle\\Tests": "tests/",
+                    "Guzzle": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                },
+                {
+                    "name": "Guzzle Community",
+                    "homepage": "https://github.com/guzzle/guzzle/contributors"
+                }
+            ],
+            "description": "Guzzle is a PHP HTTP client library and framework for building RESTful web service clients",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "http client",
+                "rest",
+                "web service"
+            ],
+            "time": "2013-12-05 23:39:20"
+        },
+        {
             "name": "symfony/console",
             "version": "v2.4.0",
             "target-dir": "Symfony/Component/Console",
@@ -771,6 +863,60 @@
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
             "time": "2013-11-27 09:10:40"
+        },
+        {
+            "name": "symfony/event-dispatcher",
+            "version": "v2.4.0",
+            "target-dir": "Symfony/Component/EventDispatcher",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/EventDispatcher.git",
+                "reference": "acd1707236f6eb96fbb8d58f63d289b72ebc2f6e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/acd1707236f6eb96fbb8d58f63d289b72ebc2f6e",
+                "reference": "acd1707236f6eb96fbb8d58f63d289b72ebc2f6e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/dependency-injection": "~2.0"
+            },
+            "suggest": {
+                "symfony/dependency-injection": "",
+                "symfony/http-kernel": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\EventDispatcher\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony EventDispatcher Component",
+            "homepage": "http://symfony.com",
+            "time": "2013-12-03 14:52:22"
         },
         {
             "name": "zendframework/zend-developer-tools",
@@ -947,6 +1093,113 @@
                 "zf2"
             ],
             "time": "2013-10-31 15:48:16"
+        },
+        {
+            "name": "zfr/zfr-pusher",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zf-fr/zfr-pusher.git",
+                "reference": "1d6869d4d55f71423e1bddbc3cc502d6c0fb325b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zf-fr/zfr-pusher/zipball/1d6869d4d55f71423e1bddbc3cc502d6c0fb325b",
+                "reference": "1d6869d4d55f71423e1bddbc3cc502d6c0fb325b",
+                "shasum": ""
+            },
+            "require": {
+                "guzzle/guzzle": ">=3.5,<=3.8",
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ZfrPusher\\": "src/",
+                    "ZfrPusherTest\\": "tests/"
+                },
+                "classmap": [
+                    "./"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michaël Gallego",
+                    "email": "mic.gallego@gmail.com",
+                    "homepage": "http://www.michaelgallego.fr"
+                }
+            ],
+            "description": "PHP library for interacting with the Pusher REST API",
+            "homepage": "https://github.com/zf-fr/zfr-pusher",
+            "keywords": [
+                "events",
+                "publish",
+                "pusher",
+                "real time",
+                "rest",
+                "trigger"
+            ],
+            "time": "2013-09-08 12:25:30"
+        },
+        {
+            "name": "zfr/zfr-pusher-module",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zf-fr/zfr-pusher-module.git",
+                "reference": "01f26fda601979d52f2905e74c826f85dfbab215"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zf-fr/zfr-pusher-module/zipball/01f26fda601979d52f2905e74c826f85dfbab215",
+                "reference": "01f26fda601979d52f2905e74c826f85dfbab215",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "zendframework/zend-servicemanager": "2.*",
+                "zfr/zfr-pusher": "1.*"
+            },
+            "require-dev": {
+                "zendframework/zendframework": "2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ZfrPusherModule\\": "src/",
+                    "ZfrPusherModuleTest\\": "tests/"
+                },
+                "classmap": [
+                    "./"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michaël Gallego",
+                    "email": "mic.gallego@gmail.com",
+                    "homepage": "http://www.michaelgallego.fr"
+                }
+            ],
+            "description": "Zend Framework 2 module for interacting with the Pusher REST API, built on top of ZfrPusher",
+            "homepage": "https://github.com/zf-fr/zfr-pusher-module",
+            "keywords": [
+                "events",
+                "publish",
+                "pusher",
+                "real time",
+                "rest",
+                "trigger",
+                "zf2"
+            ],
+            "time": "2013-05-21 13:37:31"
         }
     ],
     "packages-dev": [
