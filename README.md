@@ -16,8 +16,8 @@ Zespół kilku (np. 3) onkologów, którzy stacjonują w niezależnych ośrodkac
 
 ### Założona funkcjonalność po pierwszym etapie
 1. Pełna integracja frameworka z ORMem
-1.1. Rozwiązanie problemu połączenia Zend Framework 2 z Doctrine 2. 
-1.2. Prawdopodobnie wykorzystamy gotowe i zalecane rozwiązania.
+- 1. Rozwiązanie problemu połączenia Zend Framework 2 z Doctrine 2. 
+- 2. Prawdopodobnie wykorzystamy gotowe i zalecane rozwiązania.
 2. Stworzenie schematu bazy danych MySQL (MySQL Workbench)
 3. Utworzenie szkieletu aplikacji
 Odpowiedni podział zgodny z wymuszoną architekturą MVC. Wygenerowane modele dla Doctrine oraz przygotowane kontrolery, akcje i widoki
