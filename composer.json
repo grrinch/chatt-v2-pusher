@@ -13,6 +13,7 @@
         "doctrine/doctrine-orm-module": "dev-master",
         "zendframework/zend-developer-tools": "dev-master",
         "zfr/zfr-pusher": "1.*",
-        "zfr/zfr-pusher-module": "1.*"
+        "zfr/zfr-pusher-module": "1.*",
+        "zendframework/zftool": "dev-master"
     }
 }

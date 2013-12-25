@@ -2,3 +2,4 @@ local.php
 *.local.php
 !/local.php
 !/zdt.local.php
+!/zfr_pusher.local.php

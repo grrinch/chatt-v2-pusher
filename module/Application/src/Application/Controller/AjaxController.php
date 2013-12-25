@@ -12,6 +12,7 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 // Pusher
 use ZfrPusher\Client\Credentials;
 use ZfrPusher\Client\PusherClient;
@@ -30,10 +31,47 @@ class AjaxController extends AbstractActionController {
         // Single channel
         $service->trigger('my-channel-1', 'my-event', array('key' => 'value'));
 
-        // Multiplie channels
-        $service->trigger(array('my-channel-1', 'my-channel-2'), 'my-event', array('key' => 'value'));
-
         return new ViewModel();
+    }
+    
+    public function checkSessionAction() {
+        $ret = array('test', 'test2');
+        return new JsonModel($ret);
+    }
+    
+    public function heartBeatAction() {
+        $ret = array('test', 'test2');
+        return new JsonModel($ret);
+    }
+    
+    public function roomNameAction() {
+        $ret = array('test', 'test2');
+        return new JsonModel($ret);
+    }
+    
+    public function getRoomUsersAction() {
+        $ret = array('test', 'test2');
+        return new JsonModel($ret);
+    }
+    
+    public function logMeInAction() {
+        $ret = array('test', 'test2');
+        return new JsonModel($ret);
+    }
+    
+    public function logoutAction() {
+        $ret = array('test', 'test2');
+        return new JsonModel($ret);
+    }
+    
+    public function roomCheckAction() {
+        $ret = array('test', 'test2');
+        return new JsonModel($ret);
+    }
+    
+    public function postMessageAction() {
+        $ret = array('test', 'test2');
+        return new JsonModel($ret);
     }
 
 }

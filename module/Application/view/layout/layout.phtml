@@ -14,15 +14,16 @@
                 ->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8')
                 ->appendHttpEquiv('Content-Language', 'pl-PL')
                 ->setAutoEscape(true);
-
+        echo "\n";
         echo $this->headLink()
                 ->prependStylesheet('/style.css');
-
+        echo "\n";
         echo $this->headScript()
                 ->prependFile('/ajax.js')
                 ->prependFile('http://js.pusher.com/2.1/pusher.min.js')
-                ->prependFile('https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
-                ->prependFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js');
+                ->prependFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js')
+                ->prependFile('https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
+        echo "\n";
         ?>
 
     </head>
@@ -72,6 +73,9 @@
                     </form>		
                 </div>
             </div>
+        </div>
+        <div style="display: none;">
+            <?php echo $this->content; ?>
         </div>
     </body>
 </html>

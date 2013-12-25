@@ -1228,5 +1228,59 @@
             "orm",
             "zf2"
         ]
+    },
+    {
+        "name": "zendframework/zftool",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/zendframework/ZFTool.git",
+            "reference": "2d35c9a1245c84578300e6615ef36e41fbc640ff"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/zendframework/ZFTool/zipball/2d35c9a1245c84578300e6615ef36e41fbc640ff",
+            "reference": "2d35c9a1245c84578300e6615ef36e41fbc640ff",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3",
+            "zendframework/zend-code": ">=2.2.2",
+            "zendframework/zend-config": ">=2.2.2",
+            "zendframework/zend-console": ">=2.2.2",
+            "zendframework/zend-file": ">=2.2.2",
+            "zendframework/zend-form": ">=2.2.2",
+            "zendframework/zend-loader": ">=2.2.2",
+            "zendframework/zend-modulemanager": ">=2.2.2",
+            "zendframework/zend-mvc": ">=2.2.2",
+            "zendframework/zend-serializer": ">=2.2.2",
+            "zendframework/zend-servicemanager": ">=2.2.2",
+            "zendframework/zend-stdlib": ">=2.2.2",
+            "zendframework/zend-text": ">=2.2.2",
+            "zendframework/zend-version": ">=2.2.2",
+            "zendframework/zend-view": ">=2.2.2"
+        },
+        "time": "2013-11-20 21:37:15",
+        "bin": [
+            "zf.php"
+        ],
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "ZFTool\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "description": "Utility module for Zend Framework 2 applications.",
+        "homepage": "http://framework.zend.com/",
+        "keywords": [
+            "tool",
+            "zf2"
+        ]
     }
 ]

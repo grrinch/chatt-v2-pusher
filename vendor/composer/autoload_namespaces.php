@@ -12,6 +12,7 @@ return array(
     'ZfrPusherModuleTest\\' => array($vendorDir . '/zfr/zfr-pusher-module/tests'),
     'Zend\\' => array($vendorDir . '/zendframework/zendframework/library'),
     'ZendDeveloperTools' => array($vendorDir . '/zendframework/zend-developer-tools/src'),
+    'ZFTool\\' => array($vendorDir . '/zendframework/zftool/src'),
     'Symfony\\Component\\EventDispatcher\\' => array($vendorDir . '/symfony/event-dispatcher'),
     'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
     'Guzzle\\Tests' => array($vendorDir . '/guzzle/guzzle/tests'),
