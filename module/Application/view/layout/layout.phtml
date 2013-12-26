@@ -22,7 +22,7 @@
                 ->prependFile('/ajax.js')
                 ->prependFile('http://js.pusher.com/2.1/pusher.min.js')
                 ->prependFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js')
-                ->prependFile('https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
+                ->prependFile('/js/jquery.min.js');
         echo "\n";
         ?>
 
@@ -74,7 +74,7 @@
                 </div>
             </div>
         </div>
-        <div style="display: none;">
+        <div id="widok" style="display: none;">
             <?php echo $this->content; ?>
         </div>
     </body>
