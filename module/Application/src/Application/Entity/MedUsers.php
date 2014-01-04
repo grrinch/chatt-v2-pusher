@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * MedUsers
  *
- * @ORM\Table(name="med_users", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"})})
+ * @ORM\Table(name="med_users", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"})}, indexes={@ORM\Index(name="fk_med_users_rooms", columns={"room_id"})})
  * @ORM\Entity
  */
 class MedUsers
@@ -69,6 +69,16 @@ class MedUsers
      * @ORM\Column(name="ip", type="string", length=150, nullable=true)
      */
     private $ip;
+
+    /**
+     * @var \Application\Entity\MedRooms
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\MedRooms")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="room_id", referencedColumnName="id")
+     * })
+     */
+    private $room;
 
 
 
@@ -241,5 +251,28 @@ class MedUsers
     public function getIp()
     {
         return $this->ip;
+    }
+
+    /**
+     * Set room
+     *
+     * @param \Application\Entity\MedRooms $room
+     * @return MedUsers
+     */
+    public function setRoom(\Application\Entity\MedRooms $room = null)
+    {
+        $this->room = $room;
+
+        return $this;
+    }
+
+    /**
+     * Get room
+     *
+     * @return \Application\Entity\MedRooms 
+     */
+    public function getRoom()
+    {
+        return $this->room;
     }
 }

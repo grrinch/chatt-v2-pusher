@@ -1,3 +1,7 @@
+php_value session.name GRRINCH_MED
+php_flag session.use_cookies on
+php_flag session.use_only_cookies on
+
 RewriteEngine On
 # The following rule tells Apache that if the requested filename
 # exists, simply serve it.

@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="med_rooms", indexes={@ORM\Index(name="hash", columns={"hash"})})
  * @ORM\Entity
  */
-class MedRooms
-{
+class MedRooms {
+
     /**
      * @var integer
      *
@@ -56,15 +56,12 @@ class MedRooms
      */
     private $active = '1';
 
-
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -74,9 +71,8 @@ class MedRooms
      * @param string $hash
      * @return MedRooms
      */
-    public function setHash()
-    {
-        $this->hash = md5(uniqid(microtime(true), true));
+    public function setHash($hash) {
+        $this->hash = $hash;
 
         return $this;
     }
@@ -86,8 +82,7 @@ class MedRooms
      *
      * @return string 
      */
-    public function getHash()
-    {
+    public function getHash() {
         return $this->hash;
     }
 
@@ -97,8 +92,7 @@ class MedRooms
      * @param string $name
      * @return MedRooms
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -109,8 +103,7 @@ class MedRooms
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -120,8 +113,7 @@ class MedRooms
      * @param string $pass
      * @return MedRooms
      */
-    public function setPass($pass)
-    {
+    public function setPass($pass) {
         $this->pass = $pass;
 
         return $this;
@@ -132,8 +124,7 @@ class MedRooms
      *
      * @return string 
      */
-    public function getPass()
-    {
+    public function getPass() {
         return $this->pass;
     }
 
@@ -143,8 +134,7 @@ class MedRooms
      * @param integer $lastAct
      * @return MedRooms
      */
-    public function setLastAct()
-    {
+    public function setLastAct($lastAct) {
         $this->lastAct = time();
 
         return $this;
@@ -155,8 +145,7 @@ class MedRooms
      *
      * @return integer 
      */
-    public function getLastAct()
-    {
+    public function getLastAct() {
         return $this->lastAct;
     }
 
@@ -166,8 +155,7 @@ class MedRooms
      * @param boolean $active
      * @return MedRooms
      */
-    public function setActive($active)
-    {
+    public function setActive($active) {
         $this->active = $active;
 
         return $this;
@@ -178,8 +166,8 @@ class MedRooms
      *
      * @return boolean 
      */
-    public function getActive()
-    {
+    public function getActive() {
         return $this->active;
     }
+
 }
