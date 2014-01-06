@@ -127,7 +127,8 @@ class AjaxController extends AbstractActionController {
 
         $sess = Chatt\Session::getInstance();
 
-        $sess->beat();
+        //$sess->beat();
+        
         $to_logout = self::MAX_TIMEOUT;
         if (time() - $sess->getBeats() < $to_logout) {
             $ans['ans'] = self::HBeat;
