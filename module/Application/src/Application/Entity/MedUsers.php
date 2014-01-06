@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * MedUsers
  *
- * @ORM\Table(name="med_users", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"})}, indexes={@ORM\Index(name="fk_med_users_rooms", columns={"room_id"})})
+ * @ORM\Table(name="med_users", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"}), @ORM\UniqueConstraint(name="username_UNIQUE", columns={"username"})}, indexes={@ORM\Index(name="fk_med_users_rooms", columns={"room_id"})})
  * @ORM\Entity
  */
 class MedUsers
@@ -41,13 +41,6 @@ class MedUsers
      * @ORM\Column(name="email", type="string", length=200, nullable=false)
      */
     private $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="pass", type="string", length=128, nullable=false)
-     */
-    private $pass;
 
     /**
      * @var string
@@ -159,29 +152,6 @@ class MedUsers
     public function getEmail()
     {
         return $this->email;
-    }
-
-    /**
-     * Set pass
-     *
-     * @param string $pass
-     * @return MedUsers
-     */
-    public function setPass($pass)
-    {
-        $this->pass = $pass;
-
-        return $this;
-    }
-
-    /**
-     * Get pass
-     *
-     * @return string 
-     */
-    public function getPass()
-    {
-        return $this->pass;
     }
 
     /**

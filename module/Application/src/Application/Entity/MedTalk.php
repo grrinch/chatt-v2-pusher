@@ -106,9 +106,9 @@ class MedTalk
      * @param integer $time
      * @return MedTalk
      */
-    public function setTime($time)
+    public function setTime($time = null)
     {
-        $this->time = $time;
+        $this->time = time();
 
         return $this;
     }

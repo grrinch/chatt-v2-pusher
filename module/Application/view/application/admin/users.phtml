@@ -1,0 +1,44 @@
+<!-- menu do wyboru -->
+<?php echo $this->partial('application/admin/menu_partial', array()); ?>
+<!-- content -->
+<?php if($this->users): ?>
+<h1>Lista użytkowników</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Imię i nazwisko</th>
+            <th>Login</th>
+            <th>E-mail</th>
+            <th>Pokój</th>
+            <th>Act</th>
+        </tr>
+    </thead>
+    <tbody>
+<?php foreach($this->users as $user): ?>
+    <tr style="color: #<?php echo $user->getColor(); ?>">
+        <td>
+            <?php echo $user->getId(); ?>
+        </td>
+        <td>
+            <?php echo $user->getImieNazwisko(); ?>
+        </td>
+        <td>
+            <?php echo $user->getUsername(); ?>
+        </td>
+        <td>
+            <?php echo $user->getEmail(); ?>
+        </td>
+        <td>
+            <?php echo $user->getRoom()->getName(); ?>
+        </td>
+        <td>
+            <a href="/admin/trigger-user?id=<?php echo $user->getId(); ?>"><?php echo $user->getActive() == true ? 'TAK' : 'NIE'; ?></a>
+        </td>
+    </tr>
+<?php endforeach; ?>
+    </tbody>
+</table>
+<?php else:
+    echo 'Brak użytkowników';
+    endif; ?>

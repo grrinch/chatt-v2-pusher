@@ -18,10 +18,12 @@
         echo $this->headLink()
                 ->prependStylesheet('/style.css');
         echo "\n";
-        echo $this->headScript()
+        if(!stristr($_SERVER['REQUEST_URI'], 'admin')) {
+            echo $this->headScript()
                 ->prependFile('/ajax.js')
-                ->prependFile('http://js.pusher.com/2.1/pusher.min.js')
-                ->prependFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js')
+                ->prependFile('http://js.pusher.com/2.1/pusher.min.js');
+        }
+        echo $this->headScript()->prependFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js')
                 ->prependFile('/js/jquery.min.js');
         echo "\n";
         ?>
@@ -29,52 +31,6 @@
     </head>
     <body>
         <div id="main_container">
-            <div class="errorbox"></div>
-            <div id="details">
-                Zalogowany jako: <span id="logged_as"></span> | <a href="#!wyloguj" id="wyloguj"><img src="./images/close.png" alt="" /> Wyloguj</a>
-            </div>
-            <div id="login_ol">
-                <div id="login_form"><form method="post" action="./" id="main_login">
-                        <table class="tablecls">
-                            <tbody>	
-                                <tr>
-                                    <td><label for="login">Nick:</label></td>
-                                    <td><input type="text" name="login" id="login" /></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="room">Pokój:</label></td>
-                                    <td><input type="text" name="room" id="room" /><span></span></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="pass">Hasło:</label></td>
-                                    <td><input type="password" name="pass" id="pass" /></td>
-                                </tr>
-                                <tr>
-                                    <td>&nbsp;</td>
-                                    <td><input type="submit" value="Wejdź" id="login_but" /></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form><div id="login_form_notif"></div></div>
-
-            </div>
-            <div id="chat">
-                <div id="users">
-                    <h2>Użytkownicy:</h2>
-                    <div></div>
-                </div>
-                <div id="talk">
-                </div>
-                <div id="write">
-                    <div><p><input type="checkbox" value="1" checked name="scrollToBottom" id="scrollToBottom" /><label for="scrollToBottom">AutoScroll</label></p></div>
-                    <form id="msgform" action="./" method="post">
-                        <textarea rows="3" cols="100" id="msgbd"></textarea>
-                        <input type="submit" value="Wyślij" id="msgbut" />
-                    </form>		
-                </div>
-            </div>
-        </div>
-        <div id="widok" style="display: none;">
             <?php echo $this->content; ?>
         </div>
     </body>

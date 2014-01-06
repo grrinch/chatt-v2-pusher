@@ -123,6 +123,106 @@ return array(
                     ),
                 ),
             ),
+            'activate' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/activate',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller' => 'Ajax',
+                        'action' => 'activate',
+                    ),
+                ),
+            ),
+            // administracyjne
+            'admin-main' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/admin',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller' => 'Admin',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
+            'admin-logout' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/admin/logout',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller' => 'Admin',
+                        'action' => 'logout',
+                    ),
+                ),
+            ),
+            'admin-rooms' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/admin/rooms',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller' => 'Admin',
+                        'action' => 'rooms',
+                    ),
+                ),
+            ),
+            'admin-users' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/admin/users',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller' => 'Admin',
+                        'action' => 'users',
+                    ),
+                ),
+            ),
+            'admin-addroom' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/admin/add-room',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller' => 'Admin',
+                        'action' => 'addRoom',
+                    ),
+                ),
+            ),
+            'admin-adduser' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/admin/add-user',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller' => 'Admin',
+                        'action' => 'addUser',
+                    ),
+                ),
+            ),
+            'admin-trigger1' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/admin/trigger-user',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller' => 'Admin',
+                        'action' => 'trigger',
+                    ),
+                ),
+            ),
+            'admin-trigger2' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/admin/trigger-room',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller' => 'Admin',
+                        'action' => 'trigger',
+                    ),
+                ),
+            ),
         // poniżej dotyczy standardowych rut Zend Skeleton Application
         // The following is a route to simplify getting started creating
         // new controllers and actions without needing to create a new
@@ -178,7 +278,8 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
-            'Application\Controller\Ajax' => 'Application\Controller\AjaxController'
+            'Application\Controller\Ajax' => 'Application\Controller\AjaxController',
+            'Application\Controller\Admin' => 'Application\Controller\AdminController'
         ),
     ),
     'view_manager' => array(

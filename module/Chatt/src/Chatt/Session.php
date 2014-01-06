@@ -5,12 +5,19 @@ namespace Chatt;
 class Session {
 
     protected static $instance = null;
+    
     protected $_dane = array(
         'login' => null,
         'hash' => null,
         'room' => null,
         'beats' => 0);
+    
     protected $final = false;
+    
+    private $_admin = array(
+        'login' => null,
+        'auth' => false
+    );
 
     public static function getInstance() {
         if (isset(self::$instance))
@@ -40,6 +47,64 @@ class Session {
         if ($this->isAllData())
             $this->final = true;
         return $this->save();
+    }
+    
+    /**
+     * Tworzy sesję admina
+     * @param type $login
+     * @return type
+     */
+    public function createAdmin($login = null) {
+        $this->_admin['login'] = $login;
+        $this->_admin['auth'] = $this->_admin['login'] == null ? false : true;
+        $this->adminMake();
+        return $this->_admin['auth'];
+    }
+    
+    /**
+     * Sprawdza czy admin jest już zalogowany
+     * @return boolean
+     */
+    public function adminLogged() {
+        $this->adminMake(true);
+        return $this->_admin['auth'];
+    }
+    
+    /**
+     * zwraca login zalogowanego admina lub false
+     * @return string
+     */
+    public function adminGetLogin() {
+        if($this->adminLogged()) 
+            return $this->_admin['login'];
+        return null;
+    }
+    
+    /**
+     * Zrzuca dane z sesji do właściwości obiektu lub odwrotnie
+     * @param boolean $dir
+     */
+    protected function adminMake($from_session = false) {
+        if($from_session) {
+            $this->_admin['login'] = $_SESSION['admin_login'];
+            $this->_admin['auth'] = $_SESSION['admin_auth'];
+        }
+        else {
+            $_SESSION['admin_login'] = $this->_admin['login'];
+            $_SESSION['admin_auth'] = $this->_admin['auth'];
+        }
+    }
+    
+    /**
+     * Usuwa dane sesji admina
+     * @return true
+     */
+    public function adminLogout() {
+        $this->_admin['auth'] = false;
+        $this->_admin['login'] = null;
+        $this->adminMake();
+        self::refresh();
+        return true;
     }
 
     protected function isAllData() {
@@ -76,12 +141,11 @@ class Session {
     }
 
     public function getBeats() {
-        if (isset($_SESSION['beats']) && $_SESSION['beats'] > 0)
-            $beats = $_SESSION['beats'];
-        elseif (isset($this->_dane['beats']) && $this->_dane['beats'] > 0)
-            $beats = $this->_dane['beats'];
-        else
-            $beats = 0;
+        if(isset($_SESSION['beats'])) $beats = $_SESSION['beats'];
+        else {
+            $beats = time();
+            $_SESSION['beats'] = $beats;
+        }
         return $beats;
     }
 
@@ -102,12 +166,11 @@ class Session {
     }
 
     public function beat() {
-        $_SESSION['beats']++;
-        return $this->getBeats();
+        $_SESSION['beats'] = time();
     }
 
     public function resetBeats() {
-        $_SESSION['beats'] = 0;
+        $_SESSION['beats'] = time();
     }
 
     public function setLastTalkId($id) {
@@ -139,7 +202,7 @@ class Session {
     }
 
     public static function refresh() {
-        $ss = self::getInstance();
+        self::getInstance();
         session_regenerate_id();
     }
 

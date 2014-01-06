@@ -1,0 +1,40 @@
+<!-- menu do wyboru -->
+<?php echo $this->partial('application/admin/menu_partial', array()); ?>
+<!-- content -->
+<?php if($this->rooms): ?>
+<h1>Lista dostępnych pokoi</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nazwa</th>
+            <th>Hash</th>
+            <th>Ostatnio</th>
+            <th>Act</th>
+        </tr>
+    </thead>
+    <tbody>
+<?php foreach($this->rooms as $room): ?>
+    <tr>
+        <td>
+            <?php echo $room->getId(); ?>
+        </td>
+        <td>
+            <?php echo $room->getName(); ?>
+        </td>
+        <td>
+            <?php echo $room->getHash(); ?>
+        </td>
+        <td>
+            <?php echo date('d-m-Y H:i', $room->getLastAct()); ?>
+        </td>
+        <td>
+            <a href="/admin/trigger-room?id=<?php echo $room->getId(); ?>"><?php echo $room->getActive() == true ? 'TAK' : 'NIE'; ?></a>
+        </td>
+    </tr>
+<?php endforeach; ?>
+    </tbody>
+</table>
+<?php else:
+    echo 'Brak pokoi';
+    endif; ?>

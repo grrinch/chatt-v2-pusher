@@ -1,0 +1,56 @@
+<!-- menu do wyboru -->
+<?php echo $this->partial('application/admin/menu_partial', array()); ?>
+<!-- content -->
+<h1>Dodaj nowy pokój</h1>
+<!-- error -->
+<?php if(isset($this->error)) echo '<h2>'.$this->error.'</h2>'; ?>
+<form id="add_room" name="add_room" method="post" action="/admin/add-room">
+    <table>
+        <tr>
+            <td>
+                Nazwa:
+            </td>
+            <td>
+                <input type="text" name="nazwa" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Hasło:
+            </td>
+            <td>
+                <input type="password" name="password1" id="password1" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Powtórz hasło:
+            </td>
+            <td>
+                <input type="password" name="password2" id="password2" /> <span id="hasla"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                <input type="submit" name="submit" value="Dodaj!" id="submit" disabled="disabled" />
+            </td>
+        </tr>
+    </table>
+</form>
+<script type="text/javascript">
+    $().ready(function() {
+        $('#add_room table').on('keyup', '#password2', function() {
+            if($('#password1').val() === $('#password2').val()) {
+                $('#hasla').html('Hasła są zgodne.').css('color', 'green');
+                $('#submit').removeAttr('disabled');
+            }
+            else {
+                $('#hasla').html('<b>Hasła nie są zgodne.</b>').css('color', 'red');
+                $('#submit').attr('disabled', 'disabled');
+            }
+        });
+    });
+</script>

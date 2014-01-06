@@ -1,0 +1,55 @@
+<!-- menu do wyboru -->
+<?php echo $this->partial('application/admin/menu_partial', array()); ?>
+<!-- content -->
+<h1>Dodaj nowego użytkownika</h1>
+<!-- error -->
+<?php if(isset($this->error)) echo '<h2>'.$this->error.'</h2>'; ?>
+<form id="add_room" name="add_room" method="post" action="/admin/add-user">
+    <table>
+        <tr>
+            <td>
+                Imię i nazwisko:
+            </td>
+            <td>
+                <input type="text" name="imieNazwisko" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Username:
+            </td>
+            <td>
+                <input type="text" name="username" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Email:
+            </td>
+            <td>
+                <input type="text" name="email" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Pokój:
+            </td>
+            <td>
+                <select name="pokoj">
+                    <option>-- Wybierz --</option>
+                    <?php foreach($rooms as $room): ?>
+                    <option value="<?php echo $room->getId(); ?>"><?php echo $room->getName(); ?></option>
+                    <?php endforeach;?>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                <input type="submit" name="submit" value="Dodaj!" id="submit" />
+            </td>
+        </tr>
+    </table>
+</form>

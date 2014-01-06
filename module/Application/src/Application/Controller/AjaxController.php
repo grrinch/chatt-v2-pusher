@@ -13,18 +13,14 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
-
 // Pusher
 use ZfrPusher\Client\Credentials;
 use ZfrPusher\Client\PusherClient;
 use ZfrPusher\Service\PusherService;
-
 // Chatt
 use Chatt;
-
 // Doctrine
 use Doctrine\ORM\EntityManager;
-
 // Moje modele
 use Application\Entity;
 
@@ -34,9 +30,17 @@ class AjaxController extends AbstractActionController {
     const KEY = 'c40d70faadb30d3c0316';
     const SECRET = '1c3d1771796b881b99a3';
 
+    //oczekiwana wartość, jeśli jest to tylko odpowiedź jałowa
+    const HBeat = 'puk';
+    //max bić serca
+    const MAX_HEART_BEATS = 350;
+    // timeout sesji
+    const MAX_TIMEOUT = 1200; //60*20 sekund
+
     /**
      * @var Zend\View\Model\ViewModel lub Zend\View\Model\JsonModel
      */
+
     protected $viewModel;
 
     /**
@@ -120,38 +124,68 @@ class AjaxController extends AbstractActionController {
     public function heartBeatAction() {
         if ($this->_ajaxCheck())
             return $this->viewModel;
-        $this->viewModel->setVariables(array('test', 'test2'));
+
+        $sess = Chatt\Session::getInstance();
+
+        $sess->beat();
+        $to_logout = self::MAX_TIMEOUT;
+        if (time() - $sess->getBeats() < $to_logout) {
+            $ans['ans'] = self::HBeat;
+            $ans['body']['beats'] = time();
+        } else {
+            $ans['ans'] = false;
+            $ans['body'] = 'clearAll(); errorBox("' . Chatt\Mess::AUTO_LOGOUT . '");';
+        }
+
+        $this->viewModel->setVariables($ans);
+
         return $this->viewModel;
     }
 
     public function roomNameAction() {
         if ($this->_ajaxCheck())
             return $this->viewModel;
-        $this->viewModel->setVariables(array('test', 'test2'));
+
+        $auth = Chatt\Auth::getInstance();
+        if ($auth->hasIdentity()) {
+            $room = $this->getEntityManager()
+                    ->getRepository('Application\Entity\MedRooms')
+                    ->findOneBy(array('id' => $_POST['room'], 'hash' => $_POST['hash'], 'active' => true));
+
+            if (isset($room)) {
+                $ans['ans'] = true;
+                $ans['body'] = '<h1>Jesteś teraz w pokoju &quot;' . $room->getName() . '&quot;</h1>';
+            } else {
+                $ans['ans'] = false;
+                $ans['body'] = 'errorBox("' . Mess::NAZWA_POKOJU . '");';
+            }
+        } else {
+            $ans['ans'] = false;
+            $ans['body'] = 'clearAll(); errorBox("' . Mess::I401 . '");';
+        }
+
+        $this->viewModel->setVariables($ans);
         return $this->viewModel;
     }
 
     public function getRoomUsersAction() {
         if ($this->_ajaxCheck())
             return $this->viewModel;
-        
+
         $auth = Chatt\Auth::getInstance();
         $ans = array();
         if ($auth->hasIdentity()) {
             $ans['ans'] = true;
             $ans['body'] = '';
 
-            $qb = $this->getEntityManager()->createQueryBuilder();
-            $qb->select(array('r', 'u'))
-                    ->from('Application\Entity\MedRooms', 'r')
-                    ->leftJoin('Application\Entity\MedUsers', 'u')
-                    ->where('r.id = :roomid')
-                    ->andWhere('r.hash = :roomhash')
-                    ->andWhere('u.active = 1')
-                    ->andWhere('r.active = 1')
-                    ->setParameters(array(':roomid' => $_POST['roomid'], ':roomhash' => $_POST['roomhash']));
-            $users = $qb->getQuery()->getResult();
-            
+            $room = $this->getEntityManager()
+                    ->getRepository('Application\Entity\MedRooms')
+                    ->findOneBy(array('id' => $_POST['roomid'], 'hash' => $_POST['roomhash']));
+
+            $users = $this->getEntityManager()
+                    ->getRepository('Application\Entity\MedUsers')
+                    ->findBy(array('room' => $room->getId(), 'active' => true));
+
             foreach ($users as $user) {
                 $ans['body'] .= '<p style="color: #' . $user->getColor() . '"><b>';
                 $ans['body'] .= $user->getImieNazwisko();
@@ -163,7 +197,7 @@ class AjaxController extends AbstractActionController {
         }
 
         $this->viewModel->setVariables($ans);
-        
+
         return $this->viewModel;
     }
 
@@ -173,119 +207,42 @@ class AjaxController extends AbstractActionController {
 
         /* tutaj wszystko jest jeszcze nie przerobione */
         $sess = Chatt\Session::getInstance();
-        
-        // najpierw musimy sprawdzić, czy pokój istnieje, jeśli nie, to go utworzyć, jeśli tak, zalogować
-        $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('r')
-                ->from('Application\Entity\MedRooms', 'r')
-                ->where('r.name = :roomname')
-                ->andWhere('active = 1')
-                ->andWhere(
-                        $qb->expr()->literal(sha1(
-                                        $qb->expr()->concat('hash', $_POST['pass'])
-                        ))
+
+        // najpierw musimy sprawdzić, czy pokój istnieje
+        $room = $this->getEntityManager()
+                ->getRepository('Application\Entity\MedRooms')
+                ->findOneBy(array('name' => $_POST['room']));
+
+        $user = $this->getEntityManager()
+                ->getRepository('Application\Entity\MedUsers')
+                ->findOneBy(array('username' => $_POST['login']));
+
+        if (!isset($room) || $room->getPass() != sha1($room->getHash() . $_POST['pass'])) {
+            // dane pokoju nie są OK
+            $ans = array('ans' => false,
+                'body' => Chatt\Mess::POKOJ_ZLE_HASLO);
+        } elseif (!isset($user) || $user->getRoom()->getId() != $room->getId()) {
+            // dane użytkownika nie są OK
+            $ans = array('ans' => false,
+                'body' => Chatt\Mess::I401);
+        } else {
+            //pokój istnieje, użytkownik i hasło jest OK
+            $id = $room->getId();
+            $user->setActive(true);
+            $this->getEntityManager()->persist($user);
+            $this->getEntityManager()->flush();
+
+            $ans = array('ans' => true,
+                'body' => array(
+                    'room' => $id,
+                    'login' => $user->getImieNazwisko(),
+                    'hash' => $room->getHash()
                 )
-                ->setParameters(array(':roomname' => $_POST['room']));
-                $room = $qb->getQuery()->getResult();
-        
-		if(isset($room[0])) {
-                    $r = $room[0];
-			$this->getEntityManager()->persist($r);
-                        $r->setLastAct();
-                        $this->getEntityManager()->flush();
-		}
-		else {
-			//$ret = $this->conn->query('SELECT `id` FROM `rooms` WHERE `name`="'.Safe::mys($name).'" AND `active` = 1');
-                        $r = $this->getEntityManager()
-                            ->getRepository('Application\Entity\MedRooms')
-                            ->findOneBy(array('name' => $_POST['room']));
-			if($r) {
-				$r = true;
-			}
-		} 
-                $room = $r;
-        
-        if ($room) { //pokój istnieje
-            if ($room === true) { // podał złe hasło
-                $ans = array('ans' => false,
-                    'body' => Chatt\Mess::POKOJ_ZLE_HASLO);
-                $this->viewModel->setVariables($ans);
-                
-            } else { // podał dobre hasło
-                $id = $room->getId();
-                $ans = array('ans' => true,
-                    'body' => array('room' => $id,
-                        'login' => Chatt\Safe::san($_POST['login']),
-                        'hash' => $room->getHash()));
-                
-                //$user = $db->createUser(Safe::san($_POST['login']), $id);
-                $user = $this->getEntityManager()
-                            ->getRepository('Application\Entity\MedUsers')
-                            ->findOneBy(array('username' => $_POST['login'], 'active' => 1, 'room_id' => $id));
-
-		if(!$user) {
-			$res = $this->conn->query('INSERT INTO `users` VALUES(NULL, "'.Safe::mys($name).'", "'.Safe::mys($room).'", NULL, NULL, "'.$this->makeColor().'", 1, "'.$_SERVER['REMOTE_ADDR'].'")');
-                        $objectManager = $this->getEntityManager();
-        $user = new \Application\Entity\MedUsers();
-        $user->setActive(true)
-                ->setColor($this->makeColor())
-                ->setUsername($_POST['login'])
-                ->setIp($_SERVER['REMOTE_ADDR'])
-                ->setRoom($room)
-                ->se
-        $user->setName('test');
-        $user->setLastAct(time());
-        $user->setPass(sha1('asdasdasd'.'123'));
-
-        $objectManager->persist($user); // $user is now "managed"
-        $objectManager->flush();        // commit changes to db
-        
-			$user == true;
-		}
-                
-                if ($user) {
-                    if ($user !== true) {
-                        $ans['ans'] = false;
-                        $ans['body'] = Chatt\Mess::USER_ALREADY_EXISTS;
-                        
-                    } else {
-                        $sess =  Chatt\Session::getInstance();
-                        if (!$sess->create($ans['body'])){
-                            $ans['ans'] = false;
-                            $ans['body'] = Mess::I502;
-                        }
-                    }
-                } else {
-                    $ans['ans'] = false;
-                    $ans['body'] = Chatt\Mess::I501;
-                }
-            }
-        } // pokój nie istnieje
-        else {
-            $id = $db->createRoom(Safe::san($_POST['room']), Safe::san($_POST['pass']));
-            $db->createUser(Safe::san($_POST['login']), $id);
-            $hash = $db->getRoomHashById($id);
-            $ans = array('ans' => true);
-            if ($hash) {
-                if ($id) {
-                    $ans['body']['hash'] = $hash;
-                    $ans['body']['room'] = $id;
-                    $ans['body']['login'] = Safe::san($_POST['login']);
-                    if (!$sess->create($ans['body'])) {
-                        $ans['ans'] = false;
-                        $ans['body'] = Mess::I500;
-                    }
-                } else {
-                    $ans['ans'] = false;
-                    $ans['body'] = Mess::I500;
-                }
-            } else {
-                $ans['ans'] = false;
-                $ans['body'] = Mess::I500;
-            }
+            );
+            $sess->create($ans['body']);
         }
         $this->viewModel->setVariables($ans);
-        
+
         return $this->viewModel;
     }
 
@@ -295,14 +252,20 @@ class AjaxController extends AbstractActionController {
         $sess = Chatt\Session::getInstance();
 
         if (isset($_SESSION['login']) && isset($_SESSION['room'])) {
-            $user = $this->getEntityManager()
-                    ->getRepository('Application\Entity\MedUsers')
-                    ->findOneBy(array('username' => $_SESSION['login'], 'id' => $_SESSION['room']));
-
-            if ($user instanceof Doctrine\ORM\EntityRepository)
-                $user->setActive(0);
-
-            $this->getEntityManager()->flush();
+            $room = $this->getEntityManager()
+                    ->getRepository('Application\Entity\MedRooms')
+                    ->findOneBy(array('id' => $_SESSION['room'], 'active' => 1));
+            var_dump($_SESSION);
+            if ($room) {
+                $user = $this->getEntityManager()
+                        ->getRepository('Application\Entity\MedUsers')
+                        ->findOneBy(array('imieNazwisko' => $_SESSION['login'], 'room' => $room));
+                if ($user) {
+                    $user->setActive(false);
+                    $this->getEntityManager()->persist($user);
+                    $this->getEntityManager()->flush();
+                }
+            }
         }
 
         Chatt\Session::delete();
@@ -332,32 +295,106 @@ class AjaxController extends AbstractActionController {
         return $this->viewModel;
     }
 
+    public function activateAction() {
+        if ($this->_ajaxCheck())
+            return $this->viewModel;
+
+        $auth = Chatt\Auth::getInstance();
+        if ($auth->hasIdentity()) {
+            $sess = Chatt\Session::getInstance();
+            $ans['ans'] = true;
+
+            $em = $this->getEntityManager();
+
+            $room = $em->getRepository('Application\Entity\MedRooms')
+                    ->findOneBy(array('id' => $sess->getRoom(), 'hash' => $sess->getHash(), 'active' => 1));
+
+            $user = $em->getRepository('Application\Entity\MedUsers')
+                    ->findOneBy(array('imieNazwisko' => $sess->getLogin(), 'room' => $room));
+            $ans['body'] = null;
+
+            if (isset($room) && isset($user)) {
+                $talks = $em->getRepository('Application\Entity\MedTalk')
+                        ->findBy(array('room' => $room));
+                if (isset($talks)) {
+                    foreach ($talks as $talk)
+                        $ans['body'] .= Chatt\Safe::format($talk->getUser()->getColor(), $talk->getUser()->getImieNazwisko(), $talk->getTime(), $talk->getContent()) . "\n";
+                }
+            }
+        } else {
+            $ans['ans'] = false;
+            $ans['body'] = 'clearAll(); errorBox("' . Chatt\Mess::I401 . '");';
+        }
+
+        $this->viewModel->setVariables($ans);
+
+        return $this->viewModel;
+    }
+
     public function postMessageAction() {
         if ($this->_ajaxCheck())
             return $this->viewModel;
-        $this->viewModel->setVariables(array('test', 'test2'));
+
+        $auth = Chatt\Auth::getInstance();
+
+        if ($auth->hasIdentity()) {
+            $sess = Chatt\Session::getInstance();
+
+            $time = time();
+            $em = $this->getEntityManager();
+
+            $room = $em->getRepository('Application\Entity\MedRooms')
+                    ->findOneBy(array('id' => $_POST['roomid'], 'hash' => $_POST['roomhash'], 'active' => 1));
+
+            $user = $em->getRepository('Application\Entity\MedUsers')
+                    ->findOneBy(array('imieNazwisko' => $_POST['userlogin'], 'room' => $room));
+
+            if (isset($_POST['imageid'])) {
+                $image = $em->getRepository('Application\Entity\MedUsers')
+                        ->findOneBy(array('is' => $_POST['imageid']));
+            }
+
+            try {
+                $mess = new \Application\Entity\MedTalk();
+                $mess->setContent($_POST['post'])
+                        ->setRoom($room)
+                        ->setTime($time)
+                        ->setUser($user);
+                if (isset($image)) {
+                    $mess->setImage($image);
+                }
+                $em->persist($mess);
+                $em->flush();
+                $lastid = $mess->getId();
+
+                if ($sess->getLastMsgId() === 0)
+                    $sess->setLastTalkId($lastid);
+
+                $sess->resetBeats();
+                $ans['ans'] = true;
+                $ans['body'] = '';
+                $body = Chatt\Safe::format($user->getColor(), $user->getImieNazwisko(), $time, Chatt\Safe::par(Chatt\Safe::san($_POST['post'])));
+
+                // pusher
+                $credentials = new Credentials(self::APP_ID, self::KEY, self::SECRET);
+                $client = new PusherClient($credentials);
+                $service = new PusherService($client);
+                // Single channel
+                if ($sess->getHash() === $room->getHash())
+                    $sessionid = $sess->getHash();
+                $service->trigger($sessionid, 'message-post', array('body' => $body));
+            } catch (\Exception $e) {
+                $ans['ans'] = false;
+                $ans['body'] = 'errorBox("' . $e->getMessage() . '");';
+            }
+        } else {
+            $ans['ans'] = false;
+            $ans['body'] = 'clearAll(); errorBox("' . Chatt\Mess::I401 . '");';
+        }
+        $this->viewModel->setVariables($ans);
+
         return $this->viewModel;
     }
-    
-    	public static function khash($data) {
-	    static $map="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	    $hash=crc32($data)+0x100000000;
-	    $str = "";
-	    do {
-	        $str = $map[31+ ($hash % 31)] . $str;
-	        $hash /= 31;
-	    } while($hash >= 1);  
-	    
-	    return $str;
-	}
-	
-	private function makeColor() {
-		return dechex(mt_rand(0, 13)) .
-				dechex(mt_rand(0, 13)) .
-				dechex(mt_rand(0, 13)) .
-				dechex(mt_rand(0, 13)) .
-				dechex(mt_rand(0, 13)) .
-				dechex(mt_rand(0, 13));
-	}
 
 }
+

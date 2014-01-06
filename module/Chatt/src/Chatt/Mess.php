@@ -11,7 +11,7 @@ class Mess {
     const I401 = 'Błąd #0x401!! Nie jesteś autoryzowany!';
     const USER_ALREADY_EXISTS = 'Użytkownik o tej nazwie już istnieje!';
     const POKOJ_JEST = "Pokój istnieje. Podaj do niego prawidłowe hasło.";
-    const POKOJ_NIE_ISTNIEJE = "Pokój o takiej nazwie nie istnieje. Utworzysz go.";
+    const POKOJ_NIE_ISTNIEJE = "Pokój o takiej nazwie nie istnieje.";
     const POKOJ_ZLE_HASLO = 'Błąd #0x401!! Podano nieprawidłowe hasło do pokoju!';
     const ZALOGUJ = 'Zaloguj się';
     const AUTO_LOGOUT = 'Nastąpiło automatyczne wylogowanie.';

@@ -1,0 +1,29 @@
+<?php
+if($logged == true):
+    ?>
+<!-- menu do wyboru -->
+<?php echo $this->partial('application/admin/menu_partial', array()); ?>
+<!-- content -->
+<h1>Witamy adminie &quot;<u><?php echo $this->adminlogin; ?></u>&quot;</h1>
+<?php
+else:
+    ?>
+<!-- formularz logowania -->
+<form id="admin_login" method="post">
+    <table>
+        <tr>
+            <td>Login</td>
+            <td><input type="text" name="login" id="login" /></td>
+        </tr>
+        <tr>
+            <td>Passwd</td>
+            <td><input type="password" name="passwd" id="passwd" /></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><input type="submit" name="button" id="button" /></td>
+        </tr>
+    </table>
+</form>
+<?php
+    endif;
