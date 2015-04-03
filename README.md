@@ -72,3 +72,8 @@ __Radek:__
 - Rozwiązanie oznaczania fragmentów zdjęcia w jQuery
 - AJAX jako alternatywa dla połączenia przez Pusher (wąskie gardło w ilości żądań HTTP)
 
+
+### Co finalnie nie zostało zaimplementowane?
+- Testy jednostkowe
+- Manipulacja, oznaczanie i opisywanie grafik
+- Generalnie przepisałem Chatt v1 na FZ2, Doctrine2 i Pushera oraz dorobiłem panel administracyjny
